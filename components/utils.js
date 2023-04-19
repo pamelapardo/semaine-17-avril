@@ -20,5 +20,4 @@ export const writeFile = async (data) => {
     console.log ('Erreur non catche writeFile utils.js', error)
   }
   //si non recuperer les donnes
-//yes
 }
