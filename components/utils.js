@@ -14,7 +14,7 @@ export const writeFile = async (data) => {
       
     } else {
       //reecrire le contenu
-      await FileSystem.writeAsStringAsync(FileSystem.documentDirectory + 'file.txt')
+      await FileSystem.writeAsStringAsync(FileSystem.documentDirectory + 'file.txt', data)
     }
   } catch (error) {
     console.log ('Erreur non catche writeFile utils.js', error)
