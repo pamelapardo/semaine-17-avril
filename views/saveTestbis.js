@@ -6,16 +6,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function SaveTestBis() {
   const [textAdded, setTextAdded] = useState('')
   const [addTitle, setAddTitle] = useState('')
-  const [taskList, setTaskList] = useState([''])
+  const [taskList, setTaskList] = useState([{title: '', content: ''}])
 
-  //On crée la tache ici
   const changetextHandler = (thisText) => {
     setTextAdded(thisText)
   }
 
   const changeAddedHandler = async () => {
     try {
-      // On regarde oú
       const titleUnderscore = addTitle.replace (/\s+/g, '_')
       const fileInfo = await FileSystem.getInfoAsync(FileSystem.documentDirectory + `${titleUnderscore}.txt`)
       if (fileInfo.exists) {
@@ -36,11 +34,12 @@ export default function SaveTestBis() {
   const dirListing = async () => {
     const reading = await FileSystem.readDirectoryAsync(FileSystem.documentDirectory)
     const formatReading = reading.map((task) => {
-      return task.replace(/_/g, ' ')
+
+      return task.replace(/_/g, ' ') ()
+      // lire le contenu en tant que string de chaque fichier
     })
     setTaskList(formatReading);
   }
-
   useEffect(() => {
     dirListing()
   }, [])
@@ -50,9 +49,9 @@ export default function SaveTestBis() {
       <TextInput onChangeText={changeTitleHandler} placeholder='Titre...' />
       <TextInput onChangeText={changetextHandler} placeholder='Tâche...' />
       <Button onPress={changeAddedHandler} title='Save' />
-      {taskList.map((task, index) => {
+      {taskList.map((task, key) => {
        return ( 
-       <Text key={index? index: 0}>
+       <Text key={index? index: 0} name={task.name} content={task.content}>
           {task}
         </Text>)
       })}
